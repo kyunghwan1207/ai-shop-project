@@ -1,0 +1,49 @@
+<style>
+    .item_img {
+        width: 150px;
+    }
+</style>
+
+<h1>Get Item Page</h1>
+<form th:action="@{/item/get}">
+    <label for="searchName">이름:</label>
+    <input id="searchName" type="text" th:name="searchName"/>
+    <input type="submit" value="검색">
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>이름</th>
+            <th>가격</th>
+            <th>이미지이름</th>
+            <th>등록일자</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="itemDTO : ${itemDTOs}">
+                <td th:text="${itemDTO.id}">
+                    <a th:href="@{/item/detail(id=${itemDTO.id})}">
+                    </a>
+
+                </td>
+            <td th:text="${itemDTO.name}">name</td>
+            <td th:text="${itemDTO.price}">price</td>
+            <td>
+                <a th:href="@{/item/detail(id=${itemDTO.id})}">
+                <img class="item_img" th:src="'/img/' + ${itemDTO.imgname}" />
+                </a>
+            </td>
+                <td th:text="${itemDTO.rdate}">rdate</td>
+        </tr>
+
+    </tbody>
+</table>
+
+<ul class="pagination">
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+</ul>

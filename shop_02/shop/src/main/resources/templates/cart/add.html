@@ -1,0 +1,45 @@
+<meta charset="utf-8">
+<div class="container">
+    <h1>Cart Add Page</h1>
+    <p th:text="${custName} + '(' + ${custId} + ')' + '님의 장바구니 추가'">empty</p>
+    <form th:action="@{/cart/add}" method="post" enctype="multipart/form-data"
+          th:object="${cartDTO}">
+        <div class="form-group">
+            <label for="item_id">item_id</label>
+            <input id="item_id" type="text" th:field="*{item_id}"/>
+        </div>
+        <div class="form-group">
+            <label for="cnt">cnt</label>
+            <input id="cnt" type="number" th:field="*{cnt}"/>
+        </div>
+
+        <input type="submit" value="장바구니 추가"/>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("")
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

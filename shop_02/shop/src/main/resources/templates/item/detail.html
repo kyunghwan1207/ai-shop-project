@@ -1,0 +1,36 @@
+<style>
+  .item_img {
+    width: 200px;
+  }
+</style>
+<script>
+  $(document).ready()
+</script>
+<h3>Item Detail</h3>
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>이름</th>
+      <th>가격</th>
+      <th>이미지이름</th>
+      <th>등록일자</th>
+      <th>장바구니담기</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td th:text="${itemDTO.id}">
+        <a th:href="@{/item(id=${itemDTO.id})}">id</a>
+      </td>
+      <td th:text="${itemDTO.name}">name</td>
+      <td th:text="${itemDTO.price}">price</td>
+      <td>
+        <p th:text="${itemDTO.imgname}">imgname</p>
+        <img class="item_img" th:src="'/img/' + ${itemDTO.imgname}"/>
+      </td>
+      <td th:text="${itemDTO.rdate}">rdate</td>
+      <button id="cart_add_btn">담기</button>
+    </tr>
+  </tbody>
+</table>

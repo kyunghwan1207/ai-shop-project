@@ -1,0 +1,30 @@
+<h1>Get Cust Page</h1>
+<form th:action="@{/cust/get}">
+    <label for="searchName">이름:</label>
+    <input id="searchName" type="text" th:name="searchName"/>
+    <input type="submit" value="검색">
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>pwd</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="custDTO : ${custDTOs}">
+            <td th:text="${custDTO.id}">id</td>
+            <td th:text="${custDTO.name}">name</td>
+            <td th:text="${custDTO.pwd}">pwd</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="pagination">
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+</ul>

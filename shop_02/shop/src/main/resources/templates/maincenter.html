@@ -1,0 +1,53 @@
+<meta charset="utf-8">
+
+<script>
+
+function display(data){
+	$('#result').text(data);
+};
+
+function getdata(){
+	$.ajax({
+		url:'/gettime',
+		success:function(result){
+			display(result);
+		},
+		error:function(){
+			$('#result').text('Error ... ');
+		}
+	});
+};
+
+$(document).ready(function(){
+	getdata();
+/* 	setInterval(() => {
+		getdata();
+	}, 500000); */
+	
+});
+</script>
+
+<h1>Main Center</h1>
+<h3 id="result"></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

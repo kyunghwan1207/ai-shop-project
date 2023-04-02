@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="col-sm-10">
+    <h2>Mall List</h2>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>RDate</th>
+        <th>Ownername</th>
+        <th>Phonenumber</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="mallDTO : ${mallDTOs}">
+        <td th:text="${mallDTO.id}"></td>
+        <td th:text="${mallDTO.name}"></td>
+        <td th:text="${mallDTO.address}"></td>
+        <td th:text="${mallDTO.rdate}"></td>
+        <td th:text="${mallDTO.ownername}"></td>
+        <td th:text="${mallDTO.phonenumber}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

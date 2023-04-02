@@ -1,0 +1,36 @@
+<h1>Get Cart Page</h1>
+<form th:action="@{/carts/get}">
+    <label for="searchName">이름:</label>
+    <input id="searchName" type="text" th:name="searchName"/>
+    <input type="submit" value="검색">
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>IMG</th>
+            <th>ID</th>
+            <th>ITEM_NAME</th>
+            <th>ITEM_PRICE</th>
+            <th>COUNT</th>
+            <th>RDATE</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="cartDTO : ${cartDTOs}">
+            <td th:text="${cartDTO.item_imgname}">id</td>
+            <td th:text="${cartDTO.id}">name</td>
+            <td th:text="${cartDTO.item_name}">pwd</td>
+            <td th:text="${cartDTO.item_price}">pwd</td>
+            <td th:text="${cartDTO.cnt}">pwd</td>
+            <td th:text="${cartDTO.rdate}">pwd</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="pagination">
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+</ul>
