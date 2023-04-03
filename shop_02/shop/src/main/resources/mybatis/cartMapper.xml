@@ -19,6 +19,14 @@
         INNER JOIN cust cu ON ca.cust_id = cu.id
         INNER JOIN item it ON ca.item_id = it.id
     </select>
+    <select id="getPageWithCustId" parameterType="String" resultType="CartDTO">
+        SELECT ca.id, ca.cust_id, cu.name as cust_name, it.name as item_name,
+        it.price as item_price, ca.cnt, ca.rdate, it.imgname as item_imgname,
+        it.id as item_id
+        FROM cart ca
+        INNER JOIN cust cu ON ca.cust_id = #{cust_id} and cu.id=#{cust_id}
+        INNER JOIN item it ON ca.item_id = it.id
+    </select>
     <insert id="insert" parameterType="CartDTO">
         INSERT INTO cart VALUES (NULL, #{cust_id}, #{item_id}, #{cnt}, NOW())
     </insert>

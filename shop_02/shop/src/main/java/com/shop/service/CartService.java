@@ -1,5 +1,7 @@
 package com.shop.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.shop.dto.CartDTO;
 import com.shop.frame.MyService;
 import com.shop.mapper.CartMapper;
@@ -40,5 +42,9 @@ public class CartService implements MyService<Integer, CartDTO> {
 
     public List<CartDTO> findAllWithCustId(String cust_id) throws Exception {
         return cartMapper.findAllWithCustId(cust_id);
+    }
+    public Page<CartDTO> getPageWithCustId(int pageNo, String cust_id) throws Exception {
+        PageHelper.startPage(pageNo, 10);
+        return cartMapper.getPageWithCustId(cust_id);
     }
 }

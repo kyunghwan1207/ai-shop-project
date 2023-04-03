@@ -1,5 +1,8 @@
 package com.shop.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.shop.dto.CustDTO;
 import com.shop.dto.ItemDTO;
 import com.shop.frame.ItemFrameService;
 import com.shop.mapper.ItemMapper;
@@ -41,5 +44,12 @@ public class ItemService implements ItemFrameService<Integer, ItemDTO> {
     public List<ItemDTO> search(String txt) throws Exception {
         return itemMapper.search(txt);
     }
+    public Page<ItemDTO> getPage(int pageNo) throws Exception {
+        PageHelper.startPage(pageNo, 10);
+        return itemMapper.getPage();
+    }
 
+    public List<Integer> getIdList() {
+        return itemMapper.getIdList();
+    }
 }

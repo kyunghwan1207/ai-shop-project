@@ -11,6 +11,9 @@
         SELECT * FROM cust WHERE id=#{id}
     </select>
     <select id="selectall" resultType="CustDTO">
+        SELECT * FROM cust ORDER BY id DESC
+    </select>
+    <select id="getPage" resultType="custDTO">
         SELECT * FROM cust
     </select>
     <insert id="insert" parameterType="CustDTO">

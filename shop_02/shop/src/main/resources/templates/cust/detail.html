@@ -1,0 +1,45 @@
+<script>
+    $(document).ready(function() {
+        $('#update_btn').click(function() {
+            $('#register_form').attr(
+                {
+                    'action': '[[@{/cust/updateimpl}]]',
+                    'method': 'post'
+                }
+            );
+            $('#register_form').submit();
+        });
+        // form이 아닌 경우
+        $('#delete_btn').click(function(){
+            id = $('#id').val();
+
+            if(confirm(id + "를 삭제하시겠습니까?")) {
+                location.href = '/cust/deleteimpl?id=' + id;
+            }
+
+        });
+    });
+</script>
+
+<div class="container">
+    <div class="col-sm-5">
+
+        <h1>Cust Detail Page</h1>
+        <form id="register_form">
+            <div class="form-group">
+                <label for="id">ID</label>
+                <input readonly id="id" type="text" name="id" th:value="${custDTO.id}"/>
+            </div>
+            <div class="form-group">
+                <label for="name">name</label>
+                <input id="name" type="text" th:value="${custDTO.name}" name="name"/>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input id="pwd" type="text" th:value="${custDTO.pwd}" class="form-control" name="pwd" />
+            </div>
+        </form>
+        <button id="update_btn">UPDATE</button>
+        <button id="delete_btn">DELETE</button>
+    </div>
+</div>

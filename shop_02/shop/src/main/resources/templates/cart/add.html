@@ -1,26 +1,41 @@
-<meta charset="utf-8">
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#add_btn").click(function() {
+            $('#add_form').attr(
+                {
+                    'action': '[[@{/cart/add}]]',
+                    'method': 'post'
+                }
+            );
+            $('#add_form').submit();
+        })
+    });
+</script>
+
 <div class="container">
     <h1>Cart Add Page</h1>
     <p th:text="${custName} + '(' + ${custId} + ')' + '님의 장바구니 추가'">empty</p>
-    <form th:action="@{/cart/add}" method="post" enctype="multipart/form-data"
-          th:object="${cartDTO}">
+    <form id="add_form">
         <div class="form-group">
             <label for="item_id">item_id</label>
-            <input id="item_id" type="text" th:field="*{item_id}"/>
+            <select id="item_id" name="item_id">
+                <option value="">--item_id 선택--</option>
+                <option th:each="val: ${itemIdList}" th:value="${val}"
+                        th:text="${val}"
+                >
+                </option>
+            </select>
         </div>
         <div class="form-group">
             <label for="cnt">cnt</label>
-            <input id="cnt" type="number" th:field="*{cnt}"/>
+            <input id="cnt" type="number" name="cnt"/>
         </div>
 
-        <input type="submit" value="장바구니 추가"/>
+<!--        <input type="submit" value="장바구니 추가"/>-->
     </form>
+    <button id="add_btn">장바구니 추가</button>
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("")
-    });
-</script>
+
 
 
 

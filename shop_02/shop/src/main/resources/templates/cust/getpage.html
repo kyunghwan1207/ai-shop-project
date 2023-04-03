@@ -1,0 +1,33 @@
+<h1>Get Cust Pagenation Page</h1>
+<h3></h3>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>pwd</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="cust : ${custs.getList()}">
+        <td>
+            <a th:href="@{/cust/detail(id=${cust.id})}" th:text="${cust.id}"></a>
+        </td>
+        <td th:text="${cust.name}"></td>
+        <td th:text="${cust.pwd}"></td>
+    </tr>
+    </tbody>
+</table>
+<ul class="pagination">
+    <!-- getPrePage : 이전 페이지 -->
+    <li th:classappend="${custs.getPrePage() == 0} ? 'disabled'">
+        <a th:href="@{/cust/getpage(pageNum=${custs.getPrePage()})}">Previous</a>
+    </li>
+    <li th:each="page: ${#numbers.sequence(custs.getNavigateFirstPage(), custs.getNavigateLastPage())}" th:classappend="${page == custs.getPageNum()} ? 'active'">
+        <a th:text="${page}" th:href="@{/cust/getpage(pageNum=${page})}"></a>
+    </li>
+    <li th:classappend="${custs.getNextPage() == 0} ? 'disabled'">
+        <a th:href="@{/cust/getpage(pageNum=${custs.getNextPage()})}">Next</a>
+    </li>
+</ul>

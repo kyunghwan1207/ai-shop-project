@@ -1,5 +1,7 @@
 package com.shop.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.shop.dto.CustDTO;
 import com.shop.frame.MyService;
 import com.shop.mapper.CustMapper;
@@ -39,5 +41,10 @@ public class CustService implements MyService<String, CustDTO> {
     }
     public List<CustDTO> findByName(String searchName) throws Exception {
         return custMapper.findByName(searchName);
+    }
+
+    public Page<CustDTO> getPage(int pageNo) throws Exception {
+        PageHelper.startPage(pageNo, 10);
+        return custMapper.getPage();
     }
 }

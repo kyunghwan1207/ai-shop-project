@@ -16,21 +16,28 @@
         </tr>
     </thead>
     <tbody>
-        <tr th:each="cartDTO : ${cartDTOs}">
-            <td th:text="${cartDTO.item_imgname}">id</td>
-            <td th:text="${cartDTO.id}">name</td>
-            <td th:text="${cartDTO.item_name}">pwd</td>
-            <td th:text="${cartDTO.item_price}">pwd</td>
-            <td th:text="${cartDTO.cnt}">pwd</td>
-            <td th:text="${cartDTO.rdate}">pwd</td>
+        <tr th:each="cartDTO : ${cartDTOs.getList()}">
+            <td>
+                <img th:src="'/img/' + ${cartDTO.item_imgname}"/>
+            </td>
+            <td th:text="${cartDTO.id}">id</td>
+            <td th:text="${cartDTO.item_name}">item_name</td>
+            <td th:text="${cartDTO.item_price}">item_price</td>
+            <td th:text="${cartDTO.cnt}">count</td>
+            <td th:text="${cartDTO.rdate}">rdate</td>
         </tr>
     </tbody>
 </table>
 
 <ul class="pagination">
-    <li class="active"><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
+    <!-- getPrePage : 이전 페이지 -->
+    <li th:classappend="${cartDTOs.getPrePage() == 0} ? 'disabled'">
+        <a th:href="@{/cart(pageNum=${cartDTOs.getPrePage()},id=${session.custDTO.id})}">Previous</a>
+    </li>
+    <li th:each="page: ${#numbers.sequence(cartDTOs.getNavigateFirstPage(), cartDTOs.getNavigateLastPage())}" th:classappend="${page == cartDTOs.getPageNum()} ? 'active'">
+        <a th:text="${page}" th:href="@{/cart(pageNum=${page},id=${session.custDTO.id})}"></a>
+    </li>
+    <li th:classappend="${cartDTOs.getNextPage() == 0} ? 'disabled'">
+        <a th:href="@{/cart(pageNum=${cartDTOs.getNextPage()},id=${session.custDTO.id})}">Next</a>
+    </li>
 </ul>

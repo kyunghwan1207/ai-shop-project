@@ -74,23 +74,31 @@ public class MainController {
     public String checkDuplicateId(
             Model model,
             @RequestBody CheckDuplicateIdRequestDTO requestDTO) throws Exception {
-        System.out.println("model = " + model);
         System.out.println("checkDuplicateId() / id = " + requestDTO.getId());
         String id = requestDTO.getId();
         CustDTO custDTO1 = new CustDTO();
         List<CustDTO> custDTOs = custService.get();
-        model.addAttribute("center", "register");
         model.addAttribute("custDTO", custDTO1);
         for (CustDTO custDTO : custDTOs) {
             if (custDTO.getId().equals(id)) {
 //                return new CheckDuplicateIdResponseDTO(id, 409, "이미 가입된 아이디입니다.");
                 System.out.println("이미 존재하는 id입니다.");
                 model.addAttribute("status", 409);
-                return "register";
+                model.addAttribute("msg", "이미 존재하는 id입니다.");
+                model.addAttribute("id", id);
+                model.addAttribute("center", "register-idcheck");
+                return "register-idcheck";
             }
         }
         System.out.println("사용가능한 id입니다.");
-        model.addAttribute("status", 200);
-        return "register";
+        model.addAttribute("status", 201);
+        model.addAttribute("msg", "사용가능한 id입니다.");
+        model.addAttribute("id", id);
+        model.addAttribute("center", "register-idcheck");
+        /**
+         * register-success.html 을 부르자
+         * id=custDTO.getId(), msg="사용가능한 id입니다."
+         * */
+        return "register-idcheck";
     }
 }

@@ -87,6 +87,14 @@
 			<artifactId>json-simple</artifactId>
 			<version>1.1</version>
 		</dependency>
+
+		<!--페이징, pagenation-->
+		<!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-spring-boot-starter -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>1.4.6</version>
+		</dependency>
 	</dependencies>
 
 	<build>

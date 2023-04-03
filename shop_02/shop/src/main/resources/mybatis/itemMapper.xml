@@ -7,12 +7,17 @@
     <select id="search" parameterType="String" resultType="itemDTO">
         SELECT * FROM item WHERE item.name LIKE CONCAT('%', #{txt}, '%')
     </select>
-
+    <select id="getPage" resultType="itemDTO">
+        SELECT * FROM item
+    </select>
     <select id="select" parameterType="Integer" resultType="itemDTO">
         SELECT * FROM item WHERE id=#{id}
     </select>
     <select id="selectall" resultType="itemDTO">
         SELECT * FROM item
+    </select>
+    <select id="getIdList" resultType="Integer" >
+        select id from item;
     </select>
     <insert id="insert" parameterType="itemDTO">
         INSERT INTO item VALUES (NULL, #{name},#{price},#{imgname},#{rdate})

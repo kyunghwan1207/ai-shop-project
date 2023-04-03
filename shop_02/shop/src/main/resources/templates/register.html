@@ -1,29 +1,4 @@
-<div class="container">
-    <h1>회원가입</h1>
-    <form th:action="@{/register}" method="post" enctype="multipart/form-data"
-          th:object="${custDTO}">
-        <div class="form-group">
-            <label for="id">ID</label>
-            <input id="id" type="text" th:field="*{id}"/>
-        </div>
-        <input type="button" class="check_duplicate_id" value="아이디중복체크"/>
-        <div>
-            <span th:text="'사용가능한 아이디입니다!'" th:if="${status <= 300 && status >= 200}"></span>
-            <span th:text="'이미 가입된 아이디입니다!'" th:if="${status >= 400 && status <= 500}"></span>
-        </div>
-
-        <div class="form-group">
-            <label for="name">name</label>
-            <input id="name" type="text" th:field="*{name}"/>
-        </div>
-        <div class="form-group">
-            <label for="pwd">Password:</label>
-            <input id="pwd" th:field="*{pwd}" type="password" class="form-control">
-        </div>
-        <input type="submit" value="회원가입" />
-    </form>
-</div>
-<script type="text/javascript">
+<script>
     $(document).ready(function () {
         $('.check_duplicate_id').click((e) => {
             const id = $('#id').val();
@@ -37,25 +12,41 @@
             const data = JSON.stringify({
                 'id': id
             });
+
             $.ajax({
                 url: url,
                 type: 'POST',
                 contentType: 'application/json',
                 data: data
-            }).done((res) => {
-                console.log("res: ", res);
-                if (res.status == 200) {
-                    console.log('200!');
-                    $('input[name=msg]').attr('value', "사용가능한 아이디입니다.");
-                } else {
-                    console.log('not 200 :(');
-                    $('input[name=msg]').attr('value', "이미 가입된 아이디입니다.");
-                }
-
             });
         });
     });
 </script>
+
+<div class="container">
+    <h1>회원가입</h1>
+    <form th:action="@{/register}" method="post" enctype="multipart/form-data"
+          th:object="${custDTO}">
+        <div class="form-group">
+            <label for="id">ID</label>
+            <input id="id" type="text" th:field="*{id}"/>
+        </div>
+        <input type="button" class="check_duplicate_id" value="아이디중복체크"/>
+
+        <input type="text" name="msg" id="msg" th:text="${msg}">
+
+        <div class="form-group">
+            <label for="name">name</label>
+            <input id="name" type="text" th:field="*{name}"/>
+        </div>
+        <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input id="pwd" th:field="*{pwd}" type="password" class="form-control" />
+        </div>
+        <input type="submit" value="회원가입" />
+    </form>
+</div>
+
 
 
 

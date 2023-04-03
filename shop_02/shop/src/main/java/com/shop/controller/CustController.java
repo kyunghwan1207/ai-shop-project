@@ -1,5 +1,6 @@
 package com.shop.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.shop.dto.CustDTO;
 import com.shop.service.CustService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
 
 @Controller
@@ -17,7 +19,6 @@ public class CustController {
     String dir = "/cust/";
     @GetMapping("")
     public String cust(Model model) {
-        // left와 center 영역만 바꿔보자!
         model.addAttribute("left", dir+"left");
         model.addAttribute("center", dir+"center");
         return "main";
@@ -32,7 +33,8 @@ public class CustController {
             System.out.println("fail to custAdd() :(");
         }
 
-        return "redirect:/cust/add";
+//        return "redirect:/cust/add";
+        return "redirect:/cust/getpage";
     }
 
     @GetMapping("/add")
@@ -80,6 +82,53 @@ public class CustController {
         model.addAttribute("center", dir+"get");
         model.addAttribute("custDTOs", custDTOs);
         return "main";
+    }
+
+    @GetMapping("/getpage")
+    public String getpage(@RequestParam(required = false, defaultValue = "1") int pageNum, Model model) throws Exception {
+        System.out.println("[GET] /cust/getpage | CustController.getpage");
+        PageInfo<CustDTO> p = new PageInfo<>(custService.getPage(pageNum), 10);
+        System.out.println("p = " + p);
+        model.addAttribute("custs", p);
+        model.addAttribute("left", dir+"left");
+        model.addAttribute("center", dir+"getpage");
+        return "/main";
+    }
+    @GetMapping("/detail")
+    public String getCustDetail(Model model, String id) throws UserPrincipalNotFoundException {
+        System.out.println("[GET] /cust/detail | id = " + id);
+        CustDTO custDTO = null;
+        try {
+            custDTO = custService.get(id);
+            model.addAttribute("custDTO", custDTO);
+            System.out.println("custDTO = " + custDTO);
+        } catch (Exception e) {
+            throw new UserPrincipalNotFoundException("사용자를 찾을 수 없습니다.");
+        }
+        model.addAttribute("left", dir + "left");
+        model.addAttribute("center", dir + "detail");
+        return "main";
+    }
+    @PostMapping("/updateimpl")
+    public String updateImpl(Model model, CustDTO custDTO) {
+        System.out.println("/cust/updateimpl | model = " + model);
+        System.out.println("/cust/updateimpl | custDTO = " + custDTO);
+        try {
+            custService.modify(custDTO);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return "redirect:/cust/detail?id=" + custDTO.getId();
+    }
+    @GetMapping("/deleteimpl")
+    public String deleteImpl(Model model, String id) {
+        System.out.println("/deleteimpl | id = " + id);
+        try {
+            custService.remove(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return "redirect:/cust/getpage";
     }
 
 }

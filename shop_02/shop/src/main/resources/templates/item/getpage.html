@@ -1,0 +1,54 @@
+<style>
+    .item_img {
+        width: 150px;
+    }
+</style>
+
+<h1>Get Item with Page</h1>
+<form th:action="@{/item/get}">
+    <label for="searchName">이름:</label>
+    <input id="searchName" type="text" th:name="searchName"/>
+    <input type="submit" value="검색">
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>이름</th>
+            <th>가격</th>
+            <th>이미지</th>
+            <th>등록일자</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="itemDTO : ${items.getList()}">
+                <td th:text="${itemDTO.id}">
+                    <a th:href="@{/item/detail(id=${itemDTO.id})}">
+                    </a>
+
+                </td>
+            <td th:text="${itemDTO.name}">name</td>
+            <td th:text="${itemDTO.price}">price</td>
+            <td>
+                <a th:href="@{/item/detail(id=${itemDTO.id})}">
+                <img class="item_img" th:src="@{|/img/${itemDTO.imgname}|}" />
+                </a>
+            </td>
+                <td th:text="${itemDTO.rdate}">rdate</td>
+        </tr>
+
+    </tbody>
+</table>
+
+<ul class="pagination">
+    <!-- getPrePage : 이전 페이지 -->
+    <li th:classappend="${items.getPrePage() == 0} ? 'disabled'">
+        <a th:href="@{/item/getpage(pageNum=${items.getPrePage()})}">Previous</a>
+    </li>
+    <li th:each="page: ${#numbers.sequence(items.getNavigateFirstPage(), items.getNavigateLastPage())}" th:classappend="${page == items.getPageNum()} ? 'active'">
+        <a th:text="${page}" th:href="@{/item/getpage(pageNum=${page})}"></a>
+    </li>
+    <li th:classappend="${items.getNextPage() == 0} ? 'disabled'">
+        <a th:href="@{/item/getpage(pageNum=${items.getNextPage()})}">Next</a>
+    </li>
+</ul>

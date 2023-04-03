@@ -1,10 +1,13 @@
 package com.shop.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.shop.dto.CustDTO;
 import com.shop.dto.ItemDTO;
 import com.shop.service.CustService;
 import com.shop.service.ItemService;
+import com.shop.util.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +17,14 @@ import java.util.List;
 @Controller
 @RequestMapping("/item")
 public class ItemController {
+
     @Autowired
     ItemService itemService;
     String dir = "/item/";
+
+    @Value(value = "${imglocation}")
+    String custdir;
+
     @GetMapping("")
     public String item(Model model) {
         // left와 center 영역만 바꿔보자!
@@ -26,11 +34,14 @@ public class ItemController {
     }
     @PostMapping("/add")
     public String itemAdd(ItemDTO itemDTO, Model model) {
-        System.out.println("in itemAdd() / itemDTO = " + itemDTO);
-
+        String imgName = itemDTO.getImg().getOriginalFilename();
+        System.out.println("imgName = " + imgName);
+        itemDTO.setImgname(imgName);
         try {
+            FileUploadUtil.saveFile(itemDTO.getImg(), custdir);
             itemService.register(itemDTO);
         } catch (Exception e) {
+            e.getMessage();
             e.printStackTrace();
             System.out.println("fail to itemAdd() :(");
         }
@@ -38,7 +49,7 @@ public class ItemController {
         model.addAttribute("left", dir+"left");
         model.addAttribute("center", dir+"add");
 
-        return "main";
+        return "redirect:/item/getpage";
     }
     @GetMapping("/add")
     public String itemAddGET(ItemDTO itemDTO, Model model) {
@@ -49,20 +60,6 @@ public class ItemController {
         return "main";
     }
 
-//    @RequestMapping("/get/${custId}")
-//    public String custGet(Model model, @PathVariable String custId) {
-//        System.out.println("custId = " + custId);
-//        try {
-//            CustDTO findCustDTO = custService.get(custId);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            System.out.println("CustController.custGet / fail to custGet() :(");
-//        }
-//
-//        model.addAttribute("left", dir+"left");
-//        model.addAttribute("center", dir+"get");
-//        return "main";
-//    }
     @GetMapping("/get")
     public String itemGetAll(Model model, @RequestParam(value = "searchName", required = false) String searchName) {
         List<ItemDTO> itemDTOs = null;
@@ -92,4 +89,14 @@ public class ItemController {
         return "main";
     }
 
+    @GetMapping("/getpage")
+    public String getpage(@RequestParam(required = false, defaultValue = "1") int pageNum, Model model) throws Exception {
+        System.out.println("[GET] /cust/getpage | CustController.getpage");
+        PageInfo<ItemDTO> p = new PageInfo<>(itemService.getPage(pageNum), 5);
+        System.out.println("p = " + p);
+        model.addAttribute("items", p);
+        model.addAttribute("left", dir+"left");
+        model.addAttribute("center", dir+"getpage");
+        return "main";
+    }
 }
