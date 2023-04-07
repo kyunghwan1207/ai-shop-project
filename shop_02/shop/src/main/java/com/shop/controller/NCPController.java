@@ -94,18 +94,4 @@ public class NCPController {
         model.addAttribute("center", "ocrfacerecognitionimpl");
         return "main";
     }
-
-    @GetMapping("/weather")
-    public String getWeather(Model model, String loc) {
-        model.addAttribute("center", "weather");
-        return "main";
-    }
-    @PostMapping("/weatherimpl")
-    public String weatherimpl(Model model, String loc) throws IOException, ParseException {
-        System.out.println("weatherimple() / loc = " + loc);
-        String weatherInfo = WeatherUtil.getWeatherInfoWhichLoc(loc);
-        model.addAttribute("weatherInfoDTO", weatherInfo);
-        model.addAttribute("center", "weatherimpl");
-        return "main";
-    }
 }

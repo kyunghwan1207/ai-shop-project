@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class WeatherUtil {
-    public static String getWeatherInfoWhichLoc(String loc) throws IOException, ParseException {
+    public static String getWeatherInfoWhichLoc(String locName) throws IOException, ParseException {
         // 컨테이너 생성
         GenericXmlApplicationContext ctx =
                 new GenericXmlApplicationContext();
@@ -37,13 +37,14 @@ public class WeatherUtil {
         // property 정보 얻기
         String secretKey = env.getProperty("weatherSecretKey");
         String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyMMdd"));
+        String locNum = getLocNum(locName);
 
         StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1360000/MidFcstInfoService/getMidFcst"); /*URL*/
         urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + secretKey); /*Service Key*/
         urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지번호*/
         urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
         urlBuilder.append("&" + URLEncoder.encode("dataType","UTF-8") + "=" + URLEncoder.encode("JSON", "UTF-8")); /*요청자료형식(XML/JSON)Default: XML*/
-        urlBuilder.append("&" + URLEncoder.encode("stnId","UTF-8") + "=" + URLEncoder.encode(loc, "UTF-8")); /*108 전국, 109 서울, 인천, 경기도 등 (활용가이드 하단 참고자료 참조)*/
+        urlBuilder.append("&" + URLEncoder.encode("stnId","UTF-8") + "=" + URLEncoder.encode(locNum, "UTF-8")); /*108 전국, 109 서울, 인천, 경기도 등 (활용가이드 하단 참고자료 참조)*/
         urlBuilder.append("&" + URLEncoder.encode("tmFc","UTF-8") + "=" + URLEncoder.encode(date + "0600", "UTF-8")); /*-일 2회(06:00,18:00)회 생성 되며 발표시각을 입력 YYYYMMDD0600 (1800)-최근 24시간 자료만 제공*/
         URL url = new URL(urlBuilder.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -77,5 +78,30 @@ public class WeatherUtil {
         System.out.println("weatherResult = " + weatherInfoResult);
 
         return weatherInfoResult;
+    }
+    private static String getLocNum(String locName) {
+        String locNum = "''";
+        if (locName.equals("강원도")) {
+            locNum = "105";
+        } else if (locName.equals("전국")) {
+            locNum = "108";
+        } else if (locName.equals("서울") || locName.equals("인천") || locName.equals("경기도")) {
+            locNum = "109";
+        } else if (locName.equals("충청북도")) {
+            locNum = "131";
+        } else if (locName.equals("대전") || locName.equals("세종") || locName.equals("충청남도")) {
+            locNum = "133";
+        } else if (locName.equals("전라북도")) {
+            locNum = "146";
+        } else if (locName.equals("광주") || locName.equals("전라남도")) {
+            locNum = "156";
+        } else if (locName.equals("대구") || locName.equals("경상북도")) {
+            locNum = "143";
+        } else if (locName.equals("부산") || locName.equals("울산") || locName.equals("경상남도")) {
+            locNum = "159";
+        } else if (locName.equals("제주도")) {
+            locNum = "184";
+        }
+        return locNum;
     }
 }

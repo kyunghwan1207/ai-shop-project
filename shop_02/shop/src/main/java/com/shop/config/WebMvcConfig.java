@@ -15,6 +15,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/img/**").addResourceLocations(uploadPath);
-        //로컬컴퓨터에 저장된 파일을 읽어올 root경로
+        //로컬컴퓨터에 저장된 파일을 읽어올 root경로 -> 프로그램에서 /img/~ 라고 쓰면 prefix로 uploadPath가 붙는다
     }
 }

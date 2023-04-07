@@ -3,7 +3,7 @@
         $('#weather_form > button').click(function() {
             $('#weather_form').attr(
                 {
-                    'action': '[[@{/weathermpl}]]',
+                    'action': '[[@{/weather}]]',
                     'method': 'post'
                 }
             );
@@ -13,12 +13,37 @@
     });
 </script>
 <div class="container">
-  <h1>날씨 정보</h1>
+  <h1>날씨 정보 검색</h1>
   <form id="weather_form">
 
     <div class="form-group">
-      <label>검색 결과</label>
-      <p th:text="${weatherInfoDTO}"></p>
+      <div>
+        <h3>지역 이름</h3>
+        <select name="locName">
+          <option th:text="${locName}" style="display: none;"></option>
+          <option th:value="'108'">전국</option>
+          <option th:value="'109'">서울</option>
+          <option th:value="'109'">인천</option>
+          <option th:value="'109'">경기도</option>
+          <option th:value="'131'">충청북도</option>
+          <option th:value="'133'">대전</option>
+          <option th:value="'133'">세종</option>
+          <option th:value="'133'">충청남도</option>
+          <option th:value="'156'">전라북도</option>
+          <option th:value="'156'">광주</option>
+          <option th:value="'156'">전라남도</option>
+          <option th:value="'143'">대구</option>
+          <option th:value="'143'">경상북도</option>
+          <option th:value="'159'">부산</option>
+          <option th:value="'159'">울산</option>
+          <option th:value="'159'">경상남도</option>
+          <option th:value="'184'">제주도</option>
+        </select>
+        <button>검색</button>
+      </div>
+      <h3>검색결과</h3>
+      <textarea th:unless="${weatherInfoDTO == null}" th:text="${weatherInfoDTO}" style="width:500px; height: 450px"></textarea>
     </div>
+
   </form>
 </div>
