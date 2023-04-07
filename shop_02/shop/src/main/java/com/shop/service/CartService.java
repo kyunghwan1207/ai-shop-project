@@ -44,7 +44,7 @@ public class CartService implements MyService<Integer, CartDTO> {
         return cartMapper.findAllWithCustId(cust_id);
     }
     public Page<CartDTO> getPageWithCustId(int pageNo, String cust_id) throws Exception {
-        PageHelper.startPage(pageNo, 10);
+        PageHelper.startPage(pageNo, 3);
         return cartMapper.getPageWithCustId(cust_id);
     }
 }

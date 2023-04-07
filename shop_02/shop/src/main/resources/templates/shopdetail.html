@@ -1,0 +1,83 @@
+<script>
+ $(document).ready(function(){
+    const handleCartDelBtnClick = (menu_id) => {
+      // menu_id 삭제하는 로직
+      if (confirm(menu_id + "을(를) 삭제하시겠습니까?")) {
+        location.href = "/menu/delete?id=" + menu_id;
+      }
+    }
+    });
+</script>
+
+<div class="container">
+  <div class="col-sm-5">
+    <h2>매장 상세보기</h2>
+    <h2 th:text="'shop_id: ' + ${shopid}"></h2>
+    <form id="update_form">
+      <div class="form-group">
+        <label for="id">ID:</label>
+        <input type="text" class="form-control" id="id" th:value="${ditem.id}" name="id" readonly>
+      </div>
+      <div class="form-group">
+        <label for="name">NAME:</label>
+        <input type="text" class="form-control" id="name" th:value="${ditem.name}" name="name">
+      </div>
+      <div class="form-group">
+        <label for="address">ADDRESS:</label>
+        <input type="text" class="form-control" id="address" th:value="${ditem.address}" name="address">
+      </div>
+      <div class="form-group">
+        <label for="imgname">IMG:</label>
+        <img class="item_img" th:src="'/img/'+${ditem.imgname}" />
+        <input id="imgname" type="hidden" name="imgname" th:value="${ditem.imgname}">
+      </div>
+      <div class="form-group">
+        <label for="id">RDATE:</label>
+        <input type="text" class="form-control" id="rdate" th:value="${#dates.format(ditem.rdate, 'yyyy년 MM월 dd일 hh시 mm분 ss초')}" name="rdate" readonly>
+      </div>
+      <div class="form-group">
+        <label for="ownername">OWNERNAME:</label>
+        <input type="text" class="form-control" id="ownername" th:value="${ditem.ownername}" name="ownername">
+      </div>
+      <div class="form-group">
+        <label for="phonenumber">PHONENUMBER:</label>
+        <input type="text" class="form-control" id="phonenumber" th:value="${ditem.phonenumber}" name="phonenumber">
+      </div>
+    </form>
+
+    <button class="btn btn-default" id="update_btn">UPDATE</button>
+    <button class="btn btn-default" id="delete_btn">DELETE</button>
+    <h2>메뉴 목록</h2>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>이미지</th>
+        <th>상품 아이디</th>
+        <th>상품 이름</th>
+        <th>상품 가격</th>
+        <th>생성일자</th>
+        <th>삭제</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="menu : ${menus}">
+        <td>
+          <img th:src="'/img/' + ${menu.menu_imgname}"/>
+        </td>
+        <td th:text="${menu.menu_id}">id</td>
+        <td th:text="${menu.menu_name}">item_name</td>
+        <td th:text="${menu.menu_price}">item_price</td>
+
+        <td th:text="${#dates.format(menu.menu_rdate, 'yyyy년 MM월 dd일 hh시 mm분 ss초')}">rdate</td>
+        <td>
+          <button th:onclick="handleCartDelBtnClick([[${menu.menu_id}]]);" type="button" class="btn btn-danger">
+            삭제
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+</div>

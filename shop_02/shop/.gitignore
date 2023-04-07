@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### 민감정보 ###
+application-ncp.properties
+
 ### STS ###
 .apt_generated
 .classpath

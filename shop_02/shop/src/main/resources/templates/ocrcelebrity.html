@@ -1,0 +1,26 @@
+<script>
+    $(document).ready(function() {
+        $('#ocrcelebrity_form > button').click(function() {
+            $('#ocrcelebrity_form').attr(
+                {
+                    'enctype': 'multipart/form-data',
+                    'action': '[[@{/ocrcelebrityimpl}]]',
+                    'method': 'post'
+                }
+            );
+            $('#ocrcelebrity_form').submit();
+        });
+        // form이 아닌 경우
+    });
+</script>
+<div class="container">
+    <h1>OCR Celebrity</h1>
+    <form id="ocrcelebrity_form">
+
+        <div class="form-group">
+            <label for="img">이미지</label>
+            <input id="img" type="file" class="form-control" placeholder="분석할 이미지를 등록해주세요" name="img"/>
+        </div>
+        <button>등록</button>
+    </form>
+</div>

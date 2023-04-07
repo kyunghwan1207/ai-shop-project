@@ -1,0 +1,270 @@
+<style>
+    #map {
+        width: 300px;
+        height: 300px;
+        border: 1px solid red;
+    }
+</style>
+<script>
+
+    var map;
+    // 최초에 지도 뿌리는 함수
+    function display(current_coor) {
+        console.log("current_coor: ", current_coor);
+        let current_lat = current_coor['lat'];
+        let current_lng = current_coor['lng'];
+
+        var container = document.getElementById('map');
+        // 35.167196!4d129.1320533
+        // 33.450701, 126.570667
+		var options = {
+			center: new kakao.maps.LatLng(current_lat, current_lng),
+			level: 3
+		};
+		map = new kakao.maps.Map(container, options);
+        var mapTypeControl = new kakao.maps.MapTypeControl();
+        map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+        var zoomControl = new kakao.maps.ZoomControl();
+        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+    }
+
+    // 지역에 따라 다른 마케를 띄워보자
+    function markers(loc) {
+        var positions = [];
+        if (loc === 's') {
+            positions = [
+                {
+                    title: '남산',
+                    latlng: new kakao.maps.LatLng(37.5537401,126.9940781),
+                    target: 'S001',
+                    imgname: 'nam.jpg'
+                },
+                {
+                    title: '불국사',
+                    latlng: new kakao.maps.LatLng(37.5517401,126.9910781),
+                    target: '501',
+                    imgname: 'bul.jpg'
+                },
+                {
+                    title: '고양시',
+                    latlng: new kakao.maps.LatLng(37.5527401,126.9970781),
+                    target: '502',
+                    imgname: 'go.jpg'
+                },
+                {
+                    title: '떡볶이',
+                    latlng: new kakao.maps.LatLng(37.5507401,126.9900781),
+                    target: '503',
+                    imgname: 'dduk.jpg'
+                }
+            ];
+
+        } else if (loc === 'b') {
+            positions = [
+                {
+                    title: '진사명륜',
+                    latlng: new kakao.maps.LatLng(35.1193984,129.0886448),
+                    target: 'S001',
+                    imgname: 'jinsa.jpg'
+                },
+                {
+                    title: '와',
+                    latlng: new kakao.maps.LatLng(35.1233984,129.0836448),
+                    target: 'S002',
+                    imgname: 'wow.jpg'
+                },
+                {
+                    title: '피자헛',
+                    latlng: new kakao.maps.LatLng(35.1253984,129.0856448),
+                    target: 'S003',
+                    imgname: 'pizzahut.jpg'
+                },
+                {
+                    title: '독일김밥',
+                    latlng: new kakao.maps.LatLng(35.1203984,129.0806448),
+                    target: 'S004',
+                    imgname: 'kimbob.jpg'
+                }
+            ];
+
+        } else if (loc === 'j') {
+            positions = [
+                {
+                    title: '오매기떡',
+                    latlng: new kakao.maps.LatLng(35.1213984,129.0886448),
+                    target: '508',
+                    imgname: 'oh.jpg'
+                },
+                {
+                    title: '흑돼지',
+                    latlng: new kakao.maps.LatLng(35.1233984,129.0836448),
+                    target: 'http://www.daum.net',
+                    imgname: 'black.jpg'
+                },
+                {
+                    title: '감귤',
+                    latlng: new kakao.maps.LatLng(35.1253984,129.0856448),
+                    target: 'http://google.com',
+                    imgname: 'gam.jpg'
+                },
+                {
+                    title: '몸국',
+                    latlng: new kakao.maps.LatLng(35.1203984,129.0806448),
+                    target: 'http://park.com',
+                    imgname: 'mom.jpg'
+                }
+            ];
+        } else {
+
+        }
+
+        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+        for (var i = 0; i < positions.length; i ++) {
+
+            // 마커 이미지의 이미지 크기 입니다
+            var imageSize = new kakao.maps.Size(24, 35);
+
+            // 마커 이미지를 생성합니다
+            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+            // 마커를 생성합니다
+            var marker = new kakao.maps.Marker({
+                map: map, // 마커를 표시할 지도
+                position: positions[i].latlng, // 마커를 표시할 위치
+                title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                image : markerImage, // 마커 이미지
+            });
+
+            // 인포 윈도우 만들기
+            var iwContent = '<h2>' + positions[i].title + '</h2>' ;
+            iwContent += "<img src='/img/" + positions[i].imgname  + "'"  + " style='width: 80px;'>"
+
+            var infowindow = new kakao.maps.InfoWindow({
+                position : positions[i].latlng,
+                content : iwContent
+            });
+
+            kakao.maps.event.addListener(marker, 'mouseover', mouseoverListener(marker, infowindow));
+            kakao.maps.event.addListener(marker, 'mouseout', mouseoutListener(marker, infowindow));
+            kakao.maps.event.addListener(marker, 'click', mouseclickListener(positions[i].target));
+
+            function mouseoverListener(marker, infowindow) {
+                return function(){
+                    infowindow.open(map, marker);
+                };
+            }
+            function mouseoutListener(marker, infowindow) {
+                return function(){
+                    infowindow.close();
+                };
+            }
+            function mouseclickListener(target) {
+                return function(){
+                    location.href = "/shopdetail?id=" + target;
+                };
+            }
+        }
+    }
+
+    function displaymarker(lat, lng, loc) {
+        var markerPosition  = new kakao.maps.LatLng(lat, lng);
+        console.log("lat: ", lat, "lng: ", lng, "loc: ", loc);
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            position: markerPosition
+        });
+
+        // 마커가 지도 위에 표시되도록 설정합니다
+        marker.setMap(map);
+
+        var iwContent; // 인포 윈도우
+        var target;
+        if (loc === 's') {
+            target = 'http://www.seoul.go.kr';
+            iwContent = '<div style="padding:5px;">Seoul<br><img src="/img/seoul.jpg" style="width: 100px;"/></div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        } else if (loc === 'b') {
+        target = 'http://www.busan.go.kr';
+            iwContent = '<div style="padding:5px;">Busan<br><img src="/img/busan.jpg" style="width: 100px;"/></div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        } else if (loc === 'j') {
+            target = 'http://www.jeju.go.kr';
+            iwContent = '<div style="padding:5px;">Jeju<br><img src="/img/jeju.jpg" style="width: 100px;"/></div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        } else {
+            target = 'http://www.naver.com';
+            iwContent = '<div style="padding:5px;">Other<br><img src="/img/mableey1.jpg" style="width: 100px;"/></div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        }
+
+        iwPosition = new kakao.maps.LatLng(lat, lng); //인포윈도우 표시 위치입니다
+        var infowindow = new kakao.maps.InfoWindow({
+            position : iwPosition,
+            content : iwContent
+        });
+
+        kakao.maps.event.addListener(marker, 'mouseover', mouseoverListener(marker, infowindow));
+		kakao.maps.event.addListener(marker, 'mouseout', mouseoutListener(marker, infowindow));
+		kakao.maps.event.addListener(marker, 'click', mouseclickListener(target));
+
+        function mouseoverListener(marker, infowindow) {
+            return function(){
+                infowindow.open(map, marker);
+            };
+        }
+        function mouseoutListener(marker, infowindow) {
+            return function(){
+                infowindow.close();
+            };
+        }
+        function mouseclickListener(target) {
+            return function(){
+                location.href = target;
+            };
+        }
+        markers(loc);
+    }
+
+    function go(lat, lng, loc){
+        var moveLatLon = new kakao.maps.LatLng(lat,lng);
+        map.panTo(moveLatLon);
+        displaymarker(lat, lng, loc);
+    };
+
+    $(document).ready(function () {
+        // getUserCoordinates().then(data => {
+        //    console.log('data: ', data);
+        //});
+        // display(result);
+        let curr_coor = {
+            'lat': 33.450701,
+            'lng': 126.570667
+        }
+        display(curr_coor)
+        $('#bt1').click(function(){
+		    go(37.5527401,126.9930781, 's'); // 서울
+        });
+        $('#bt2').click(function(){
+            go(35.1223984,129.0896448, 'b'); // 부산
+        });
+        $('#bt3').click(function(){
+            go(33.5199183, 126.6142571, 'j'); // 제주
+        });
+        $('#bt4').click(function(){
+            // 현재
+            alert("아직 서비스가 준비되지 않았습니다.");
+            // let result = getUserCoordinates();
+            console.log("result: ", result);
+            go(result.lat, result.lng, 'c');
+        });
+    });
+</script>
+
+<div class="container">
+    <div class="col-sm-5">
+        <h1>Map Test 1</h1>
+        <button id="bt1">Seoul</button>
+        <button id="bt2">Busan</button>
+        <button id="bt3">jeju</button>
+        <button id="bt4">Current</button>
+        <div id="map"></div>
+
+    </div>
+</div>

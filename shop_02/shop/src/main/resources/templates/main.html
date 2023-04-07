@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=52c9e8620c1081572383163cce5ffbb9"></script>
 	<style>
     /* Remove the navbar's default margin-bottom and rounded borders */
     .navbar {
@@ -80,6 +81,24 @@
 					</li>
 					<li>
 						<a th:href="@{/mall}">Mall</a>
+					</li>
+					<li>
+						<a th:href="@{/map1}">Map1</a>
+					</li>
+					<li>
+						<a th:href="@{/map2}">Map2</a>
+					</li>
+					<li>
+						<a th:href="@{/ocr}">OCR</a>
+					</li>
+					<li>
+						<a th:href="@{/ocrcelebrity}">OCR Celebrity</a>
+					</li>
+					<li>
+						<a th:href="@{/ocrfacerecognition}">OCR Face Recognition</a>
+					</li>
+					<li>
+						<a th:href="@{/weather}">Weather</a>
 					</li>
 				</ul>
 				<ul th:if="${session.custDTO == null}"

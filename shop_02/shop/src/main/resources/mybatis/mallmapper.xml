@@ -13,6 +13,11 @@
     <select id="selectall" resultType="mallDTO">
         SELECT * FROM mall
     </select>
+
+    <select id="getPage" resultType="mallDTO">
+        SELECT * FROM mall
+    </select>
+
     <insert id="insert" parameterType="mallDTO">
         INSERT INTO mall VALUES (null,#{name},#{address},#{imgname}, #{rdate},#{ownername},#{phonenumber})
     </insert>

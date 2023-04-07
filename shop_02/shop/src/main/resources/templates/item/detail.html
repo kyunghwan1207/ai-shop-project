@@ -1,36 +1,50 @@
-<style>
-  .item_img {
-    width: 200px;
-  }
-</style>
 <script>
-  $(document).ready()
+  $(document).ready(function() {
+      $('#update_btn').click(function() {
+          $('#update_form').attr(
+              {
+                  'enctype': 'multipart/form-data',
+                  'action': '[[@{/item/update}]]',
+                  'method': 'post'
+              }
+          );
+          $('#update_form').submit();
+      });
+      // form이 아닌 경우
+      $('#delete_btn').click(function(){
+            id = $('#id').val();
+
+            if (confirm(id + "를 삭제하시겠습니까?")) {
+                location.href = '/item/delete?id=' + id;
+            }
+        });
+  });
 </script>
-<h3>Item Detail</h3>
-<table>
-  <thead>
-    <tr>
-      <th>id</th>
-      <th>이름</th>
-      <th>가격</th>
-      <th>이미지이름</th>
-      <th>등록일자</th>
-      <th>장바구니담기</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td th:text="${itemDTO.id}">
-        <a th:href="@{/item(id=${itemDTO.id})}">id</a>
-      </td>
-      <td th:text="${itemDTO.name}">name</td>
-      <td th:text="${itemDTO.price}">price</td>
-      <td>
-        <p th:text="${itemDTO.imgname}">imgname</p>
-        <img class="item_img" th:src="'/img/' + ${itemDTO.imgname}"/>
-      </td>
-      <td th:text="${itemDTO.rdate}">rdate</td>
-      <button id="cart_add_btn">담기</button>
-    </tr>
-  </tbody>
-</table>
+<div class="container">
+  <h1>상품 상세보기</h1>
+  <form id="update_form">
+    <div class="form-group">
+      <label for="id">아이디:</label>
+      <input id="id" type="text" name="id" th:value="${itemDTO.id}" readonly/>
+  </div>
+      <div class="form-group">
+          <label for="name">이름:</label>
+          <input id="name" type="text" name="name" th:value="${itemDTO.name}"/>
+      </div>
+      <div class="form-group">
+          <label for="price">가격:</label>
+          <input id="price" type="number" name="price" th:value="${itemDTO.price}"/>
+      </div>
+      <div class="form-group">
+        <label for="before_img">기존 이미지:</label>
+        <img class="item_img" th:src="@{|/img/${itemDTO.imgname}|}" />
+        <input  type="hidden" id="before_img" name="imgname" th:value="${itemDTO.imgname}"/>
+    </div>
+      <div class="form-group">
+          <label for="img">새로운 이미지:</label>
+          <input id="img" type="file" name="img" class="form-control" placeholder="상품이미지를 등록해주세요"/>
+      </div>
+  </form>
+  <button class="btn btn-default" id="update_btn">수정</button>
+  <button class="btn btn-default" id="delete_btn">삭제</button>
+</div>

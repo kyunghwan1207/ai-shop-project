@@ -1,18 +1,32 @@
+<script>
+    function handleCartDelBtnClick(id) {
+        if(confirm(id + "을(를) 삭제하시겠습니까?")) {
+            location.href="/cart/delete?id=" + id + "&cid=[[${session.custDTO.id}]]";
+        }
+    }
+</script>
 <h1>Get Cart Page</h1>
 <form th:action="@{/carts/get}">
     <label for="searchName">이름:</label>
     <input id="searchName" type="text" th:name="searchName"/>
     <input type="submit" value="검색">
 </form>
+<div th:text="'현재 페이지의 총합: ' + ${#aggregates.sum(cartDTOs.getList().![item_price * cnt])}">
+</div>
+<div th:text="'전체 페이지의 총합: ' + ${#aggregates.sum(cartAllDTOs.![item_price * cnt])}">
+
+</div>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>IMG</th>
-            <th>ID</th>
-            <th>ITEM_NAME</th>
-            <th>ITEM_PRICE</th>
-            <th>COUNT</th>
-            <th>RDATE</th>
+            <th>이미지</th>
+            <th>상품 아이디</th>
+            <th>상품 이름</th>
+            <th>상품 가격</th>
+            <th>개수</th>
+            <th>총합</th>
+            <th>생성일자</th>
+            <th>삭제</th>
         </tr>
     </thead>
     <tbody>
@@ -24,12 +38,18 @@
             <td th:text="${cartDTO.item_name}">item_name</td>
             <td th:text="${cartDTO.item_price}">item_price</td>
             <td th:text="${cartDTO.cnt}">count</td>
-            <td th:text="${cartDTO.rdate}">rdate</td>
+            <td th:text="${cartDTO.item_price} * ${cartDTO.cnt}"></td>
+            <td th:text="${#dates.format(cartDTO.rdate, 'yyyy-MM-dd-hh-mm-ss')}">rdate</td>
+            <td>
+                <button th:onclick="handleCartDelBtnClick([[${cartDTO.id}]]);" type="button" class="btn btn-danger">
+                    삭제
+                </button>
+            </td>
         </tr>
     </tbody>
 </table>
 
-<ul class="pagination">
+<ul class="pagination center">
     <!-- getPrePage : 이전 페이지 -->
     <li th:classappend="${cartDTOs.getPrePage() == 0} ? 'disabled'">
         <a th:href="@{/cart(pageNum=${cartDTOs.getPrePage()},id=${session.custDTO.id})}">Previous</a>

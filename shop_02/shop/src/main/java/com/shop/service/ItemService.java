@@ -45,7 +45,7 @@ public class ItemService implements ItemFrameService<Integer, ItemDTO> {
         return itemMapper.search(txt);
     }
     public Page<ItemDTO> getPage(int pageNo) throws Exception {
-        PageHelper.startPage(pageNo, 10);
+        PageHelper.startPage(pageNo, 3);
         return itemMapper.getPage();
     }
 

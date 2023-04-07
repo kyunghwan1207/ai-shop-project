@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.ShopMapper">
+
+    <select id="selectWithMenu" parameterType="String" resultType="ShopDTO">
+        SELECT s.id, m.id as menu_id, s.rdate, s.name, s.address, s.imgname, s.ownername, s.phonenumber,
+        m.name as menu_name, m.price as menu_price, m.imgname  as menu_imgname, m.rdate as menu_rdate
+        FROM menu m
+        JOIN shop s on s.id = m.shop_id
+        WHERE s.id = #{shop_id}
+    </select>
+    <select id="selectall" resultType="ShopDTO">
+        SELECT * FROM shop
+    </select>
+
+</mapper>

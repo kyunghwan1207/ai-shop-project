@@ -1,0 +1,35 @@
+<script>
+  $(document).ready(function() {
+      $('#add_btn').click(function() {
+          $('#addcart_form').attr(
+              {
+                  'action': '[[@{/cart/addimpl}]]',
+                  'method': 'post'
+              }
+          );
+          $('#addcart_form').submit();
+      });
+  });
+</script>
+<div class="container">
+  <h1>상품 장바구니 담기</h1>
+  <form id="addcart_form">
+
+      <h3 th:text="'이름: ' + ${itemDTO.name}"></h3>
+      <h3 th:text="'가격: ' + ${itemDTO.price}"></h3>
+      <img th:src="@{'/img/' + ${itemDTO.imgname}}" class="img-rounded" width="300px;" height="200px;" />
+      <input type="hidden" name="item_id" th:value="${itemDTO.id}" />
+      <input type="hidden" name="cust_id" th:value="${session.custDTO.id}" />
+      <div class="form-group">
+          <label for="cnt">수량:</label>
+          <select id="cnt" name="cnt" class="form-control">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+          </select>
+      </div>
+
+  </form>
+  <button class="btn btn-default" id="add_btn">담기</button>
+</div>

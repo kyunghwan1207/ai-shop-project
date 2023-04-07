@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @SpringBootTest
 public class UpdateTests {
@@ -17,7 +18,7 @@ public class UpdateTests {
     void contextLoads() {
         try {
             CartDTO modifyedCartDto = new CartDTO(
-                    117, null, 109, 50, LocalDateTime.now()
+                    117, null, 109, 50, new Date()
             );
             cartService.modify(modifyedCartDto);
         } catch (Exception e) {

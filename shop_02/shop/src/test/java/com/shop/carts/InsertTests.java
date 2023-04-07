@@ -11,6 +11,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
@@ -20,7 +21,7 @@ public class InsertTests {
 
     @Test
     void contextLoads() {
-        CartDTO cartDTO = new CartDTO(0, "jina", 112, 32, LocalDateTime.now());
+        CartDTO cartDTO = new CartDTO(0, "jina", 112, 32, new Date());
 
         try {
             cartService.register(cartDTO);

@@ -1,0 +1,19 @@
+<style>
+
+</style>
+<script>
+    $(document).ready(function() {
+
+    });
+</script>
+<div class="container">
+  <div class="col-sm-5">
+    <h2>OCR Celebrity Result</h2>
+    <img th:src="'/img/' + ${imgname}" alt="img" style="width: 500px;"/>
+    <h3 th:text="'감정:' + ${resultDTO.emotion}"></h3>
+    <h3 th:text="'성별:' + ${resultDTO.gender}"></h3>
+    <h3 th:text="'얼굴방향:' + ${resultDTO.pose}"></h3>
+    <h3 th:text="'연령대:' + ${resultDTO.age}"></h3>
+
+  </div>
+</div>

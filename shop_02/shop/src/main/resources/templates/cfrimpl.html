@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="col-sm-5">
+    <h2>CFR Result</h2>
+    <h3 th:text="'age: ' + ${faceInfoDTO.age}"></h3>
+    <h3 th:text="'emotion: ' + ${faceInfoDTO.emotion}"></h3>
+    <h3 th:text="'gender: ' + ${faceInfoDTO.gender}"></h3>
+    <h3 th:text="'pse: ' + ${faceInfoDTO.pose}"></h3>
+    <img th:src="'/img/' + ${imgname}" />
+  </div>
+</div>

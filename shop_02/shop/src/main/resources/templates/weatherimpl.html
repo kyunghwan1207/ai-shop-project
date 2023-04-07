@@ -1,0 +1,24 @@
+<script>
+    $(document).ready(function() {
+        $('#weather_form > button').click(function() {
+            $('#weather_form').attr(
+                {
+                    'action': '[[@{/weathermpl}]]',
+                    'method': 'post'
+                }
+            );
+            $('#weather_form').submit();
+        });
+        // form이 아닌 경우
+    });
+</script>
+<div class="container">
+  <h1>날씨 정보</h1>
+  <form id="weather_form">
+
+    <div class="form-group">
+      <label>검색 결과</label>
+      <p th:text="${weatherInfoDTO}"></p>
+    </div>
+  </form>
+</div>

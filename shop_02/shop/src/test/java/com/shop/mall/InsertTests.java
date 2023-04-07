@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
+
 @SpringBootTest
 public class InsertTests {
     @Autowired
@@ -13,16 +15,12 @@ public class InsertTests {
 
     @Test
     void contextLoads() {
-        // 부산광역시 해운대구 센텀1로 17
-        // 이마트24 센텀프리미어호텔점
-        // 02-6919-1500
-        // LocalDateTime.now()
-        // 고경환
-        // imgname: img
-
-//        MallDTO mallDTO = new MallDTO(
-//
-//        );
-//        mallService.register();
+        MallDTO obj = new MallDTO(0,"독일깁밥","부산광역시 수영구 지하상가","kimbab.jpg", LocalDateTime.now(),"고경환","051-756-2347");
+        try {
+            mallService.register(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("입력시 오류");
+        }
     }
 }

@@ -1,0 +1,25 @@
+<script>
+    $(document).ready(function() {
+        $('#weather_form > button').click(function() {
+            $('#weather_form').attr(
+                {
+                    'action': '[[@{/weatherimpl}]]',
+                    'method': 'post'
+                }
+            );
+            $('#weather_form').submit();
+        });
+        // form이 아닌 경우
+    });
+</script>
+<div class="container">
+  <h1>날씨 정보 검색</h1>
+  <form id="weather_form">
+
+    <div class="form-group">
+      <label for="loc">지역 번호</label>
+      <input id="loc" type="text" class="form-control" placeholder="날씨정보를 얻을 지역번호를 입력해주세요(108은 전국, 109는 경기도" name="loc"/>
+    </div>
+    <button>검색</button>
+  </form>
+</div>
