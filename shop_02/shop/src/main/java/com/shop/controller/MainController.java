@@ -93,7 +93,6 @@ public class MainController {
         model.addAttribute("custDTO", custDTO1);
         for (CustDTO custDTO : custDTOs) {
             if (custDTO.getId().equals(id)) {
-//                return new CheckDuplicateIdResponseDTO(id, 409, "이미 가입된 아이디입니다.");
                 System.out.println("이미 존재하는 id입니다.");
                 model.addAttribute("status", 409);
                 model.addAttribute("msg", "이미 존재하는 id입니다.");
@@ -102,6 +101,8 @@ public class MainController {
                 return "register-idcheck";
             }
         }
+
+
         System.out.println("사용가능한 id입니다.");
         model.addAttribute("status", 201);
         model.addAttribute("msg", "사용가능한 id입니다.");

@@ -16,7 +16,8 @@ public class StomWebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws").setAllowedOrigins(ALLOWED_URL_LIST).withSockJS();
-        // registry.addEndpoint("/wss").setAllowedOrigins("http://127.0.0.1:8080", "http://127.0.0.1").withSockJS();
+        // 서버에 "/ws"라는 이름으로 web socket을 하나 만들어서 서비스 할 것임
+
         // registry.addEndpoint("/chbot").setAllowedOrigins("http://127.0.0.1:8080", "http://127.0.0.1").withSockJS();
     }
 
