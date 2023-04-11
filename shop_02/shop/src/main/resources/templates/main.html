@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Bootstrap Example</title>
+	<title>AI Shop</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -79,8 +79,6 @@
 
 					<li th:if="${session.custDTO != null}">
 						<a th:href="@{/cart(id=${session.custDTO.id})}">Cart</a>
-						<a th:href="@{/websocket}">WebSocket</a>
-						<a th:href="@{/chatbot}">ChatBot</a>
 					</li>
 					<li>
 						<a th:href="@{/mall}">Mall</a>
@@ -106,6 +104,16 @@
 					<li th:if="${session.custDTO != null}">
 						<a th:href="@{/chat}">Chat</a>
 					</li>
+					<li th:if="${session.custDTO != null}">
+						<a th:href="@{/broadcast}">BroadCast</a>
+					</li>
+					<li th:if="${session.custDTO != null}">
+						<a th:href="@{/admin}">Admin</a>
+					</li>
+					<li th:if="${session.custDTO != null}">
+						<a th:href="@{/chatbot}">ChatBot</a>
+					</li>
+
 				</ul>
 				<ul th:if="${session.custDTO == null}"
 						class="nav navbar-nav navbar-right">

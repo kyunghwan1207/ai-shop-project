@@ -1,0 +1,82 @@
+<style>
+#all {
+	width: 400px;
+	height: 200px;
+	overflow: auto;
+	border: 2px solid red;
+}
+
+#me {
+	width: 400px;
+	height: 200px;
+	overflow: auto;
+	border: 2px solid blue;
+}
+
+#to {
+	width: 400px;
+	height: 200px;
+	overflow: auto;
+	border: 2px solid green;
+}
+</style>
+
+<script>
+var stompClient = null;
+var id = '[[${session.custDTO.id}]]';
+// 서버소켓에 연결
+function connect() {
+	// var socket = new SockJS('http://127.0.0.1/ws');
+	var socket = new SockJS('http://10.10.10.115/ws');
+	stompClient = Stomp.over(socket);
+
+	stompClient.connect({}, function(frame) {
+		setConnected(true);
+		console.log('Connected: ' + frame);
+		stompClient.subscribe('/send/'+id, function(msg) {
+			$("#me").prepend(
+					"<h4>" + JSON.parse(msg.body).receiveid +":"+
+					JSON.parse(msg.body).content1 + "</h4>");
+		});
+	});
+}
+
+// connect&disconnect버턴 활성화/비활성화
+function setConnected(connected) {
+	if (connected) {
+		$("#status").text("Connected");
+	} else {
+		$("#status").text("Disconnected");
+	}
+
+}
+
+// 서버에 메세지 요청 메서드
+function sendMe() {
+	var msg = JSON.stringify({
+		'sendid' : id,
+		'content1' : $('#metext').val()
+	});
+	stompClient.send("/chatbotme", {}, msg);
+}
+
+$(document).ready(function() {
+	connect();
+	$("#sendme").click(function() {
+		sendMe();
+	});
+});
+</script>
+
+
+<div class="container">
+    <div class="col-sm-5">
+        <h1>ChatBot Page</h1>
+        <H1 th:text="${session.custDTO.id}">ID</H1>
+        <H1 id="status">Status</H1>
+
+        <input type="text" id="metext"><button id="sendme">Send</button>
+        <div id="me"></div>
+
+    </div>
+</div>

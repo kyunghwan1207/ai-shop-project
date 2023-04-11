@@ -1,6 +1,7 @@
 package com.shop.controller;
 
 import com.shop.dto.MsgDTO;
+import com.shop.util.ChatBotUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
@@ -8,6 +9,8 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.io.IOException;
 
 
 @Controller
@@ -36,9 +39,39 @@ public class MsgController {
         simpMessagingTemplate.convertAndSend("/send/to/"+target, msg);
     }
 
+    @MessageMapping("/chatbotme") // 특정 Id에게 전송
+    public void chatbotme(MsgDTO msg, SimpMessageHeaderAccessor headerAccessor) throws IOException {
+        System.out.println("chatbotme() / msg = " + msg);
+        System.out.println("msg.getContent1() = " + msg.getContent1());
+
+        String id = msg.getSendid();
+        String target = msg.getReceiveid();
+        String txt = msg.getContent1();
+        String result = ChatBotUtil.chat(txt);
+        System.out.println("result = " + result);
+        msg.setContent1(result);
+        msg.setReceiveid(target);
+        simpMessagingTemplate.convertAndSend("/send/to/" + target, msg);
+    }
+
     @GetMapping("/chat")
     public String chat(Model model) {
         model.addAttribute("center", "chat");
+        return "main";
+    }
+    @GetMapping("/broadcast")
+    public String broadcast(Model model) {
+        model.addAttribute("center", "broadcast");
+        return "main";
+    }
+    @GetMapping("/admin")
+    public String admin(Model model) {
+        model.addAttribute("center", "admin");
+        return "main";
+    }
+    @GetMapping("/chatbot")
+    public String chatbot(Model model) {
+        model.addAttribute("center", "chatbot");
         return "main";
     }
 }

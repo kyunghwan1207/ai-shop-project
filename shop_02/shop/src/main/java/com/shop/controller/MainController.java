@@ -98,7 +98,7 @@ public class MainController {
                 model.addAttribute("msg", "이미 존재하는 id입니다.");
                 model.addAttribute("id", id);
                 model.addAttribute("center", "register-idcheck");
-                return "register-idcheck";
+                return "main";
             }
         }
 
@@ -112,7 +112,7 @@ public class MainController {
          * register-success.html 을 부르자
          * id=custDTO.getId(), msg="사용가능한 id입니다."
          * */
-        return "register-idcheck";
+        return "main";
     }
     @PostMapping("/cfrimpl")
     public String cfrimpl(Model model, String imgname) throws IOException, ParseException {
