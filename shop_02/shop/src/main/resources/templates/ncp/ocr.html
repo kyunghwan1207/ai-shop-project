@@ -1,22 +1,20 @@
 <script>
     $(document).ready(function() {
-        $('#ocrfacerecognition_form > button').click(function() {
-            $('#ocrfacerecognition_form').attr(
+        $('#ocr_form > button').click(function() {
+            $('#ocr_form').attr(
                 {
                     'enctype': 'multipart/form-data',
-                    'action': '[[@{/ocrfacerecognitionimpl}]]',
+                    'action': '[[@{/ocrimpl}]]',
                     'method': 'post'
                 }
             );
-            $('#ocrfacerecognition_form').submit();
+            $('#ocr_form').submit();
         });
-        // form이 아닌 경우
     });
 </script>
 <div class="container">
-  <h1>OCR Face Recognition</h1>
-  <form id="ocrfacerecognition_form">
-
+  <h1>사업자 등록증 업로드 페이지</h1>
+  <form id="ocr_form">
     <div class="form-group">
       <label for="img">이미지</label>
       <input id="img" type="file" class="form-control" placeholder="분석할 이미지를 등록해주세요" name="img"/>

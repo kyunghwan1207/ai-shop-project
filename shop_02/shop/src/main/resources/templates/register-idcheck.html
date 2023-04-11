@@ -1,6 +1,6 @@
 <script>
     $(document).ready(function () {
-        $('.check_duplicate_id').click((e) => {
+        $('#register_form > button').click((e) => {
             const id = $('#id').val();
             console.log('id: ', id);
             if (id == '') {
@@ -25,24 +25,24 @@
 
 <div class="container">
   <h1>회원가입2</h1>
-  <form th:action="@{/register}" method="post" th:object="${custDTO}">
+  <form id="register_form">
     <div class="form-group">
-      <label for="id">ID2</label>
-      <input id="id" type="text" th:field="*{id}" th:text="${id}"/>
+      <label for="id">아이디:</label>
+      <input id="id" type="text" th:text="${id}" name="id"/>
     </div>
-    <input type="button" class="check_duplicate_id" value="아이디중복체크"/>
+    <button>아이디중복체크</button>
 
     <input type="text" name="msg" id="msg" th:text="${msg}">
 
     <div class="form-group">
-      <label for="name">name</label>
-      <input id="name" type="text" th:field="*{name}"/>
+      <label for="name">이름:</label>
+      <input id="name" type="text" name="name"/>
     </div>
     <div class="form-group">
-      <label for="pwd">Password:</label>
-      <input id="pwd" th:field="*{pwd}" type="password" class="form-control" />
+      <label for="pwd">비밀번호:</label>
+      <input id="pwd" type="password" name="password"/>
     </div>
-    <input type="submit" value="회원가입" />
+    <button>회원가입</button>
   </form>
 </div>
 

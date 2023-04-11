@@ -22,7 +22,8 @@ public class WeatherController {
     @PostMapping("/weather")
     public String weatherimpl(Model model, String locName) throws IOException, ParseException {
         System.out.println("weatherimple() / locName = " + locName);
-        String weatherInfo = WeatherUtil.getWeatherInfoWhichLoc(locName);
+        String temp = WeatherUtil.getWeatherInfoWhichLoc(locName);
+        String weatherInfo =  locName + "지역의 날씨 정보입니다.\n" + temp;
         model.addAttribute("weatherInfoDTO", weatherInfo);
         model.addAttribute("locName", locName);
         model.addAttribute("center", "weatherimpl");

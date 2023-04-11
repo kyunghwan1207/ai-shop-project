@@ -56,22 +56,22 @@ public class MsgController {
 
     @GetMapping("/chat")
     public String chat(Model model) {
-        model.addAttribute("center", "chat");
+        model.addAttribute("center", "chat/chat");
         return "main";
     }
     @GetMapping("/broadcast")
     public String broadcast(Model model) {
-        model.addAttribute("center", "broadcast");
+        model.addAttribute("center", "chat/broadcast");
         return "main";
     }
     @GetMapping("/admin")
     public String admin(Model model) {
-        model.addAttribute("center", "admin");
+        model.addAttribute("center", "chat/admin");
         return "main";
     }
     @GetMapping("/chatbot")
     public String chatbot(Model model) {
-        model.addAttribute("center", "chatbot");
+        model.addAttribute("center", "chat/chatbot");
         return "main";
     }
 }

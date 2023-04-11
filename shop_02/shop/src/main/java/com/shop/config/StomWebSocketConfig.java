@@ -11,7 +11,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class StomWebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     private String[] ALLOWED_URL_LIST = {
-            "http://127.0.0.1:8080", "http://127.0.0.1", "http://10.10.10.115"
+            "http://127.0.0.1:8080", "http://127.0.0.1", "http://10.10.10.115", "http://101.101.210.36"
     };
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {

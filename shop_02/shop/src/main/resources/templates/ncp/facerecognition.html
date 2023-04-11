@@ -1,21 +1,21 @@
 <script>
     $(document).ready(function() {
-        $('#ocr_form > button').click(function() {
-            $('#ocr_form').attr(
+        $('#facerecognition_form > button').click(function() {
+            $('#facerecognition_form').attr(
                 {
                     'enctype': 'multipart/form-data',
-                    'action': '[[@{/ocrimpl}]]',
+                    'action': '[[@{/facerecognitionimpl}]]',
                     'method': 'post'
                 }
             );
-            $('#ocr_form').submit();
+            $('#facerecognition_form').submit();
         });
         // form이 아닌 경우
     });
 </script>
 <div class="container">
-  <h1>OCR</h1>
-  <form id="ocr_form">
+  <h1>얼굴 인식 이미지 업로드 페이지</h1>
+  <form id="facerecognition_form">
 
     <div class="form-group">
       <label for="img">이미지</label>

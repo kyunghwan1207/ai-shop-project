@@ -63,35 +63,34 @@ public class CustController {
     public String custGetAll(Model model, @RequestParam(value = "searchName", required = false) String searchName) throws Exception {
         System.out.println("CustController.custGetAll");
         System.out.println("searchName = " + searchName);
+        long startTime = System.currentTimeMillis();
         List<CustDTO> custDTOs = null;
         if (searchName != null) {
             // 회원 이름으로 회원 검색하는 로직
             custDTOs = custService.findByName(searchName);
         } else {
-            try {
-                custDTOs = custService.get();
-                for (CustDTO custDTO : custDTOs) {
-                    System.out.println("custDTO = " + custDTO);
-                }
-            } catch (Exception e){
-                e.printStackTrace();
-            }
+            custDTOs = custService.get();
         }
 
         model.addAttribute("left", dir+"left");
         model.addAttribute("center", dir+"get");
         model.addAttribute("custDTOs", custDTOs);
+        System.out.print("getCust() / 걸린시간: ");
+        System.out.println((System.currentTimeMillis() - startTime));
         return "main";
     }
 
     @GetMapping("/getpage")
     public String getpage(@RequestParam(required = false, defaultValue = "1") int pageNum, Model model) throws Exception {
         System.out.println("[GET] /cust/getpage | CustController.getpage");
+        long startTime = System.currentTimeMillis();
         PageInfo<CustDTO> p = new PageInfo<>(custService.getPage(pageNum), 10);
-        System.out.println("p = " + p);
+//        System.out.println("p = " + p);
         model.addAttribute("custs", p);
         model.addAttribute("left", dir+"left");
         model.addAttribute("center", dir+"getpage");
+        System.out.print("getCustWithPage() / 걸린시간: ");
+        System.out.println((System.currentTimeMillis() - startTime));
         return "/main";
     }
     @GetMapping("/detail")

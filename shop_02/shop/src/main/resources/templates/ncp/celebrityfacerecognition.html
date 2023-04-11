@@ -1,21 +1,21 @@
 <script>
     $(document).ready(function() {
-        $('#ocrcelebrity_form > button').click(function() {
-            $('#ocrcelebrity_form').attr(
+        $('#celebrity_form > button').click(function() {
+            $('#celebrity_form').attr(
                 {
                     'enctype': 'multipart/form-data',
-                    'action': '[[@{/ocrcelebrityimpl}]]',
+                    'action': '[[@{/celebrityfacerecognitionimpl}]]',
                     'method': 'post'
                 }
             );
-            $('#ocrcelebrity_form').submit();
+            $('#celebrity_form').submit();
         });
         // form이 아닌 경우
     });
 </script>
 <div class="container">
-    <h1>OCR Celebrity</h1>
-    <form id="ocrcelebrity_form">
+    <h1>유명인 이미지 업로드</h1>
+    <form id="celebrity_form">
 
         <div class="form-group">
             <label for="img">이미지</label>

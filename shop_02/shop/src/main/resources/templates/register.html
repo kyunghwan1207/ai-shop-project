@@ -1,6 +1,6 @@
 <script>
     $(document).ready(function () {
-        $('.check_duplicate_id').click((e) => {
+        $('#id_dup_check_form > button').click(function() {
             const id = $('#id').val();
             console.log('id: ', id);
             if (id == '') {
@@ -12,39 +12,63 @@
             const data = JSON.stringify({
                 'id': id
             });
+            $('#id_dup_check_form').attr(
+                {
+                    'action': '[[@{/check-duplicate-id}]]',
+                    'method': 'post'
+                }
+            )
+            $('#id_dup_check_form').submit();
+        });
 
-            $.ajax({
-                url: url,
-                type: 'POST',
-                contentType: 'application/json',
-                data: data
-            });
+        $('#register_form > button').click((e) => {
+            if ( $('#pwd').val() != $('#confirm_pwd').val() ) {
+                alert("비밀번호와 재입력 비밀번호가 일치하지 않습니다!");
+                $('#pwd').val("");
+                $('#confirm_pwd').val("");
+                e.preventDefault();
+                return;
+            }
+            $('#register_form').attr (
+                {
+                    'action': '[[@{/registerimpl}]]',
+                    'method': 'post'
+                }
+            );
+            $('#register_form').submit();
         });
     });
 </script>
 
 <div class="container">
     <h1>회원가입</h1>
-    <form th:action="@{/register}" method="post" enctype="multipart/form-data"
-          th:object="${custDTO}">
+    <form id="id_dup_check_form">
         <div class="form-group">
-            <label for="id">ID</label>
-            <input id="id" type="text" th:field="*{id}"/>
+            <label for="id">아이디:</label>
+            <input id="id" type="text" th:value="${id}" name="id"/>
         </div>
-        <input type="button" class="check_duplicate_id" value="아이디중복체크"/>
-
-        <input type="text" name="msg" id="msg" th:text="${msg}">
-
-        <div class="form-group">
-            <label for="name">name</label>
-            <input id="name" type="text" th:field="*{name}"/>
-        </div>
-        <div class="form-group">
-            <label for="pwd">Password:</label>
-            <input id="pwd" th:field="*{pwd}" type="password" class="form-control" />
-        </div>
-        <input type="submit" value="회원가입" />
+        <button id="id_duplicate_check_btn">아이디중복체크</button>
+<!--        <a th:href="@{/check-duplicate-id(id=${})}"></a>-->
+        <p th:if="${msg != null}" th:text="${msg}" th:style="${style}"></p>
+        <p th:if="${msg == null}"></p>
     </form>
+    <form id="register_form">
+        <input th:value="${id}" style="display: none;" name="id"/>
+        <div class="form-group">
+            <label for="name">이름:</label>
+            <input id="name" type="text" name="name"/>
+        </div>
+        <div class="form-group">
+            <label for="pwd">비밀번호:</label>
+            <input id="pwd"type="password" name="pwd"/>
+        </div>
+        <div class="form-group">
+            <label for="confirm_pwd">비밀번호 재입력:</label>
+            <input id="confirm_pwd" type="password" name="pwd"/>
+        </div>
+        <button id="register_btn">회원가입</button>
+    </form>
+<!--    <a th:href="@{/test(id='testId')}">test</a>-->
 </div>
 
 

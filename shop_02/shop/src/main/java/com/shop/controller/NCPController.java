@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -20,16 +17,13 @@ public class NCPController {
 
     @GetMapping("/ocr")
     public String ocr(Model model) {
-        model.addAttribute("center", "ocr");
-        List<Map<String, String>> arr = new ArrayList<>();
-        Map<String, String> el = new HashMap<>();
-        el.put("age", "10");
-        Map<String, String> map = arr.get(0);// != {"age": "10"}
-        System.out.println("map = " + map);
-
+        model.addAttribute("center", "ncp/ocr");
         return "main";
     }
 
+    /**
+     * 사업자 등록증 문서 정보 추출 탬플릿
+     * */
     @PostMapping("/ocrimpl")
     public String ocrimpl(Model model, NCPDTO ncpDTO) throws IOException, ParseException {
 
@@ -44,19 +38,19 @@ public class NCPController {
         model.addAttribute("imgname", imgfilename);
         model.addAttribute("name", companyInfoMap.get("name"));
         model.addAttribute("num", companyInfoMap.get("num"));
-        model.addAttribute("center", "ocrimpl");
+        model.addAttribute("center", "ncp/ocrimpl");
 
         return "main";
     }
 
-    @GetMapping("/ocrcelebrity")
-    public String ocrcelebrity(Model model) {
-        model.addAttribute("center", "ocrcelebrity");
+    @GetMapping("/celebrityfacerecognition")
+    public String celebrityFaceRecognition(Model model) {
+        model.addAttribute("center", "ncp/celebrityfacerecognition");
         return "main";
     }
 
-    @PostMapping("/ocrcelebrityimpl")
-    public String ocrcelebrityimpl(Model model, NCPDTO ncpDTO) throws IOException, ParseException {
+    @PostMapping("/celebrityfacerecognitionimpl")
+    public String celebrityFaceRecognitionImpl(Model model, NCPDTO ncpDTO) throws IOException, ParseException {
 
         MultipartFile img = ncpDTO.getImg();
         String imgfilename = img.getOriginalFilename();
@@ -68,18 +62,18 @@ public class NCPController {
 
         model.addAttribute("imgname", imgfilename);
         model.addAttribute("name", celInfoMap.get("celName"));
-        model.addAttribute("center", "ocrcelebrityimpl");
+        model.addAttribute("center", "ncp/celebrityfacerecognitionimpl");
 
         return "main";
     }
 
-    @GetMapping("/ocrfacerecognition")
-    public String ocrFaceRecognition(Model model) {
-        model.addAttribute("center", "ocrfacerecognition");
+    @GetMapping("/facerecognition")
+    public String faceRecognition(Model model) {
+        model.addAttribute("center", "ncp/facerecognition");
         return "main";
     }
-    @PostMapping("/ocrfacerecognitionimpl")
-    public String ocrFaceRecognitoinImpl(Model model, NCPDTO ncpDTO) throws IOException, ParseException {
+    @PostMapping("/facerecognitionimpl")
+    public String faceRecognitoinImpl(Model model, NCPDTO ncpDTO) throws IOException, ParseException {
 
         MultipartFile img = ncpDTO.getImg();
         String imgfilename = img.getOriginalFilename();
@@ -91,7 +85,7 @@ public class NCPController {
 
         model.addAttribute("imgname", imgfilename);
         model.addAttribute("resultDTO", humanInfoMap);
-        model.addAttribute("center", "ocrfacerecognitionimpl");
+        model.addAttribute("center", "ncp/facerecognitionimpl");
         return "main";
     }
 }
