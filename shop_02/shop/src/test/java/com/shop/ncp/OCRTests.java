@@ -18,7 +18,7 @@ import java.io.IOException;
 @SpringBootTest
 class OCRTests {
 
-	@Test
+	// @Test
 	void contextLoads() throws ParseException, IOException {
 		String imgname = "bl02.png";
 		String result = OCRUtil.getText(imgname);

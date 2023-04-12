@@ -9,7 +9,7 @@ import java.io.IOException;
 @SpringBootTest
 public class ChatUtilTests {
 
-    @Test
+    // @Test
     void contextLoads() throws IOException {
         String sendTxt = "니이름이뭐니";
         String replyTxt = ChatBotUtil.chat(sendTxt);

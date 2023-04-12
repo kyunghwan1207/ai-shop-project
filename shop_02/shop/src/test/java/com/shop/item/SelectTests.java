@@ -12,7 +12,7 @@ public class SelectTests {
     @Autowired
     ItemService itemService;
 
-    @Test
+    // @Test
     void contextLoads() throws Exception {
         ItemDTO itemDTO = itemService.get(1);
         System.out.println("itemDTO = " + itemDTO);

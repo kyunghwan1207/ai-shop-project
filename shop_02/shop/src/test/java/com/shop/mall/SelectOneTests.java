@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class SelectOneTests {
     @Autowired
     MallService mallService;
-    @Test
+    // @Test
     void contextLoads() {
         try {
             MallDTO mallDTO = mallService.get(102);

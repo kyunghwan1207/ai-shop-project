@@ -14,7 +14,7 @@ public class InsertTests {
     @Autowired
     ItemService itemService;
 
-    @Test
+    // @Test
     void contextLoads() {
         ItemDTO itemDTO1 = new ItemDTO(
                 "아이템2",

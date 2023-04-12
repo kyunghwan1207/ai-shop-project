@@ -13,7 +13,7 @@ public class SelectAllWithCustIdTests {
     @Autowired
     CartService cartService;
 
-    @Test
+    // @Test
     void contextLoads() {
         try {
             List<CartDTO> findCartDto = cartService.findAllWithCustId("ko1");

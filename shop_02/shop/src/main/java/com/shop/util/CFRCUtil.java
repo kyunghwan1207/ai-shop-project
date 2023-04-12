@@ -104,8 +104,9 @@ public class CFRCUtil {
         return result;
     }
 
-    public static Map<String, String> getCelNameFromResult(String result) throws ParseException {
+    public static Map<String, String> getCelNameAndConfidenceFromResult(String result) throws ParseException {
         String celName = "''";
+        String confidence = "''";
         Map<String, String> retMap = new HashMap<>();
         JSONParser jsonParser = new JSONParser();
         JSONObject globalResult = (JSONObject) jsonParser.parse(result);
@@ -113,9 +114,13 @@ public class CFRCUtil {
         JSONObject jo1 = (JSONObject) faces.get(0);
         JSONObject celebrity = (JSONObject) jo1.get("celebrity");
         celName = (String) celebrity.get("value");
-
+        double temp = ((double) celebrity.get("confidence"));
+        System.out.println("((int) celebrity.get(\"confidence\")) = " + temp);
+        String temp100Percent = String.format("%.2f", temp * 100) + "%";
+        System.out.println("temp100 = " + temp100Percent);
         System.out.println("celName = " + celName);
         retMap.put("celName", celName);
+        retMap.put("confidence", temp100Percent);
 
         return retMap;
     }

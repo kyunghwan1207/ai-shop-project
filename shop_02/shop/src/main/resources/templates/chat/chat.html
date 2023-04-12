@@ -27,7 +27,7 @@ var id = '[[${session.custDTO.id}]]';
 // 서버소켓에 연결
 function connect() {
 	// var socket = new SockJS('http://127.0.0.1/ws');
-	var socket = new SockJS('http://10.10.10.115/ws');
+	var socket = new SockJS('http://49.50.172.232/ws');
 	stompClient = Stomp.over(socket);
 
 	stompClient.connect({}, function(frame) {

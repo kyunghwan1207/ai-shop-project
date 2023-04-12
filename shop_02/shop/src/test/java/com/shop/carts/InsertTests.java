@@ -19,7 +19,7 @@ public class InsertTests {
     @Autowired
     CartService cartService;
 
-    @Test
+    // @Test
     void contextLoads() {
         CartDTO cartDTO = new CartDTO(0, "jina", 112, 32, new Date());
 

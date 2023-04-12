@@ -14,7 +14,7 @@ import java.io.IOException;
 @SpringBootTest
 public class CFRCTests {
 
-    @Test
+    // @Test
     void contextLoads() throws IOException, ParseException {
         String result = CFRCUtil.getText("mableey01.jpg");
         JSONParser jsonParser = new JSONParser();

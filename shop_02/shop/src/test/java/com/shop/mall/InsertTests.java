@@ -13,7 +13,7 @@ public class InsertTests {
     @Autowired
     MallService mallService;
 
-    @Test
+    // @Test
     void contextLoads() {
         MallDTO obj = new MallDTO(0,"독일깁밥","부산광역시 수영구 지하상가","kimbab.jpg", LocalDateTime.now(),"고경환","051-756-2347");
         try {

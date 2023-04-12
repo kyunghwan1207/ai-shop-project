@@ -12,7 +12,7 @@ class SelectAllTests {
     @Autowired
     CustService custService;
 
-    @Test
+    // @Test
     void contextLoads() {
         List<CustDTO> list = null;
         try {

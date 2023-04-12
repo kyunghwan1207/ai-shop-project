@@ -46,7 +46,10 @@ public class OCRUtil {
 		String apiURL = env.getProperty("apiURL");
 		String secretKey = env.getProperty("secretKey");
 
-		String imageFile = imgpath +"\\"+imgname;
+		/** Windows 스타일*/
+		// String imageFile = imgpath +"\\"+imgname;
+		/** Linux 스타일*/
+		String imageFile = imgpath + imgname;
 		StringBuffer response = null;
 
 			try {

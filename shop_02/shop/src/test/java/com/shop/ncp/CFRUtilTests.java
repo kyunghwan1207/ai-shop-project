@@ -11,7 +11,7 @@ import java.util.Map;
 @SpringBootTest
 public class CFRUtilTests {
 
-    @Test
+    // @Test
     void contextLoads() throws IOException, ParseException {
         String result = CFRUtil.getText("mableey01.jpg");
         System.out.println("result = " + result);

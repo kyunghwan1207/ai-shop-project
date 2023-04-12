@@ -57,11 +57,10 @@ public class NCPController {
         FileUploadUtil.saveFile(img);
 
         String result = CFRCUtil.getText(imgfilename);
-
-        Map<String, String> celInfoMap = CFRCUtil.getCelNameFromResult(result);
-
+        Map<String, String> celInfoMap = CFRCUtil.getCelNameAndConfidenceFromResult(result);
         model.addAttribute("imgname", imgfilename);
         model.addAttribute("name", celInfoMap.get("celName"));
+        model.addAttribute("confidence", celInfoMap.get("confidence"));
         model.addAttribute("center", "ncp/celebrityfacerecognitionimpl");
 
         return "main";
@@ -80,9 +79,8 @@ public class NCPController {
         FileUploadUtil.saveFile(img);
 
         String result = CFRUtil.getText(imgfilename);
-
         Map<String, String> humanInfoMap = CFRUtil.getFaceInfoFromResult(result);
-
+        System.out.println("humanInfoMap = " + humanInfoMap);
         model.addAttribute("imgname", imgfilename);
         model.addAttribute("resultDTO", humanInfoMap);
         model.addAttribute("center", "ncp/facerecognitionimpl");

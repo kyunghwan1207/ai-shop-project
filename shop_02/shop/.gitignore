@@ -6,6 +6,7 @@ target/
 
 ### 민감정보 ###
 application-ncp.properties
+application-db.properties
 
 ### STS ###
 .apt_generated

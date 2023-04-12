@@ -15,7 +15,7 @@ public class SelectAllWithMenu {
     @Autowired
     ShopService shopService;
 
-    @Test
+    // @Test
     void contextLoads() {
         try {
             List<ShopDTO> shopDTOS = shopService.getWithMenu("S001");

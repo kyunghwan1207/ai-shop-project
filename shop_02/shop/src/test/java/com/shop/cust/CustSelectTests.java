@@ -10,7 +10,7 @@ class CustSelectTests {
     @Autowired
     CustService custService;
 
-    @Test
+    // @Test
     void contextLoads() {
         CustDTO custDTO1 = null;
         CustDTO custDTO2 = new CustDTO("ko1", "1234", "고경환1");

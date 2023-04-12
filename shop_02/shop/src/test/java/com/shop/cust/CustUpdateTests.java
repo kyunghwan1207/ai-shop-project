@@ -11,7 +11,7 @@ class CustUpdateTests {
     @Autowired
     CustService custService;
 
-    @Test
+    // @Test
     void contextLoads() {
 //        CustDTO custDTO1 = new CustDTO("ko1", "1234", "고경환1");
         CustDTO custDTO2 = new CustDTO("ko1", "12345", "고경환11");

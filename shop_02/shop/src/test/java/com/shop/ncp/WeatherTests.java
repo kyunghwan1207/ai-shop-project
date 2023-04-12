@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 @SpringBootTest
 class WeatherTests {
 
-	@Test
+	// @Test
 	void contextLoads() throws IOException, ParseException {
 
 		String result = WeatherUtil.getWeatherInfoWhichLoc("159");

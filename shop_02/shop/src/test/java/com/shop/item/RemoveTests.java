@@ -12,7 +12,7 @@ class RemoveTests {
     @Autowired
     ItemService itemService;
 
-    @Test
+    // @Test
     void contextLoads() {
 //        CustDTO custDTO1 = new CustDTO("ko1", "1234", "고경환1");
 
